@@ -90,8 +90,8 @@ const SelectContent = React.forwardRef<
     {...props}
   >
     <Command>
-      <CommandInput placeholder="Search..." />
-      <CommandEmpty>No item found.</CommandEmpty>
+     
+      
       <CommandGroup>{children}</CommandGroup>
     </Command>
   </PopoverContent>
