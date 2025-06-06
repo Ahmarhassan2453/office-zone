@@ -1,8 +1,9 @@
 import './globals.css';
 import Navbar from '@/app/shared/Navbar';
 import Footer from '@/app/shared/Footer';
+import type { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Office Zone',
   description: 'Coworking Space Finder',
 };
@@ -10,9 +11,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="bg-black text-white">
+      <head />
+      <body className="bg-white text-black font-poppins">
         <Navbar />
-        <main>{children}</main>
+        <main className="min-h-screen">{children}</main>
         <Footer />
       </body>
     </html>

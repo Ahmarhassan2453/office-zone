@@ -1,6 +1,8 @@
 'use client';
 
-import { useParams } from "next/navigation";
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
 
 type TeamMember = {
   name: string;
@@ -9,6 +11,11 @@ type TeamMember = {
   image: string;
   bio: string;
 };
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 const teamMembers: TeamMember[] = [
   {
@@ -57,9 +64,42 @@ const teamMembers: TeamMember[] = [
 
 export default function TeamMemberPage() {
   const params = useParams();
-  const slug = params?.slug;
+  const slug = params?.slug as string;
 
-  const member = teamMembers.find((m) => m.slug === slug);
+  const [member, setMember] = useState<TeamMember | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMember = async () => {
+      const { data, error } = await supabase
+        .from('employees')
+        .select('*')
+        .eq('slug', slug)
+        .single();
+
+      if (!error && data) {
+        setMember({
+          name: data.Name,
+          role: data.Department,
+          slug: data.slug,
+          image: data.image,
+          bio: data.bio,
+        });
+      } else {
+        // Fallback to local array
+        const localMember = teamMembers.find((m) => m.slug === slug);
+        setMember(localMember || null);
+      }
+
+      setLoading(false);
+    };
+
+    fetchMember();
+  }, [slug]);
+
+  if (loading) {
+    return <div className="p-8 text-center">Loading...</div>;
+  }
 
   if (!member) {
     return (
