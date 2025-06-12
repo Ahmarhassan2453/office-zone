@@ -6,7 +6,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-// --- GET ---
+
 export async function GET() {
   try {
     const { data, error } = await supabase.from('employees').select('*');
@@ -17,7 +17,7 @@ export async function GET() {
   }
 }
 
-// --- POST ---
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
   }
 }
 
-// --- DELETE ---
+
 export async function DELETE(req: Request) {
   const { searchParams } = new URL(req.url);
   const idParam = searchParams.get('id');
@@ -62,7 +62,7 @@ export async function DELETE(req: Request) {
   }
 }
 
-// --- ✅ PUT ---
+
 export async function PUT(req: Request) {
   try {
     const body = await req.json();
