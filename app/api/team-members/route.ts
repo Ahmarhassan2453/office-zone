@@ -3,7 +3,7 @@ import { supabase } from '@/utils/supabaseClient'
 
 export async function GET() {
   const { data, error } = await supabase
-    .from('team_members')  // table name remains plural if your DB uses plural
+    .from('team_members') 
     .select('*')
 
   if (error) {

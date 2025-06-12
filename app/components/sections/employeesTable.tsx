@@ -39,7 +39,7 @@ export default function EmployeeTable() {
 
   return (
     <div className="overflow-x-auto p-6 max-w-6xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-center text-white">Employees Table</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center text-black">Employees Table</h2>
       <table className="min-w-full bg-slate-600 border rounded shadow-sm text-white">
         <thead>
           <tr className="bg-slate-700 text-left">
